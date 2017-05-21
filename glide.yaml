@@ -1,0 +1,11 @@
+package: github.com/gustavohenrique/ransomware
+import:
+- package: github.com/parnurzeal/gorequest
+- package: github.com/skratchdot/open-golang
+  subpackages:
+  - open
+- package: gopkg.in/gin-gonic/gin.v1
+testImport:
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert
