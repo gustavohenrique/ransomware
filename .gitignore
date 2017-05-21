@@ -1,5 +1,5 @@
-private.key
-public.key
+/private.key
+/public.key
 rsw_welcome.html
 rswclient-darwin-amd64
 rswclient-linux-amd64

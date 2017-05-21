@@ -2,7 +2,7 @@
 test:
 	rm -rf /tmp/test 2>/dev/null
 	cp -r test /tmp
-	go test cryptography/decrypt_test.go cryptography/encrypt_test.go cryptography/generate_keys_test.go
+	go test -v cryptography/decrypt_test.go cryptography/encrypt_test.go cryptography/generate_keys_test.go
 	go test util/html_test.go
 
 win:
@@ -22,5 +22,6 @@ build: linux
 all: linux win mac
 
 install:
+	go get -v github.com/Masterminds/glide
+	cd ${GOPATH}/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
 	glide install
-	go install

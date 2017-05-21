@@ -29,13 +29,13 @@ import (
 
 func TestGenerateECDSAPrivateKey(t *testing.T) {
 	key, _ := cryptography.GenerateECDSAPrivateKey()
-	assert.Equal(t, 77, len(key.D.String()))
+	assert.True(t, len(key.D.String()) > 0)
 }
 
 func TestGetExistingPrivateKey(t *testing.T) {
 	expected := "47aa0a3bdd2d59a4cb2100241e080aea2dac4d679f7e4a851482d39827cf9e85"
 	basedir, _ := filepath.Abs("../")
-	privateKeyFile := filepath.Join(basedir, "test/resources/private.key")
+	privateKeyFile := filepath.Join(basedir, "test", "resources", "private.key")
 	ecdsaPrivKey, _ := cryptography.GenerateECDSAPrivateKey()
 	privKey := cryptography.GetOrCreatePrivKey(ecdsaPrivKey, privateKeyFile)
 	assert.Equal(t, expected, privKey.D)
@@ -45,7 +45,7 @@ func TestGetExistingPublicKey(t *testing.T) {
 	expectedX := "8e6859e0356e8ae0d6f97a7ea778baac6bc4260b3d6a05673df74b92eb5e07bf"
 	expectedY := "89f9e0a014f0219c42ee172494ec5793f4f263cb59e9d08b309be57b99fc85a5"
 	basedir, _ := filepath.Abs("../")
-	publicKeyFile := filepath.Join(basedir, "test/resources/public.key")
+	publicKeyFile := filepath.Join(basedir, "test", "resources", "public.key")
 	ecdsaPrivKey, _ := cryptography.GenerateECDSAPrivateKey()
 	pubKey := cryptography.GetOrCreatePubKey(ecdsaPrivKey, publicKeyFile)
 	assert.Equal(t, expectedX, pubKey.X)

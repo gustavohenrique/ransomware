@@ -24,6 +24,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"math/big"
 )
 
@@ -43,6 +44,7 @@ func ToHex(num *big.Int) string {
 func GetOrCreatePrivKey(ecdsaPrivKey *ecdsa.PrivateKey, file string) PrivKey {
 	raw, err := ioutil.ReadFile(file)
 	if err != nil {
+		log.Printf("No private key found.")
 		return PrivKey{D: ToHex(ecdsaPrivKey.D)}
 	}
 	var privKey PrivKey
@@ -53,6 +55,7 @@ func GetOrCreatePrivKey(ecdsaPrivKey *ecdsa.PrivateKey, file string) PrivKey {
 func GetOrCreatePubKey(ecdsaPrivKey *ecdsa.PrivateKey, file string) PubKey {
 	raw, err := ioutil.ReadFile(file)
 	if err != nil {
+		log.Println("No public key found.")
 		return PubKey{X: ToHex(ecdsaPrivKey.PublicKey.X), Y: ToHex(ecdsaPrivKey.PublicKey.Y)}
 	}
 	var pubKey PubKey
