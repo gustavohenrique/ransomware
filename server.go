@@ -29,8 +29,8 @@ import (
 )
 
 const (
-	PRIVATE_KEY_FILENAME = "private.key"
-	PUBLIC_KEY_FILENAME  = "public.key"
+	privateKeyFilename = "private.key"
+	publicKeyFilename  = "public.key"
 )
 
 var (
@@ -39,7 +39,7 @@ var (
 	pubKey  cryptography.PubKey
 )
 
-func runHttpServer() {
+func runHTTPServer() {
 	port := os.Getenv("RANSOMWARE_PORT")
 	if port == "" {
 		port = "7000"
@@ -68,11 +68,11 @@ func main() {
 	}
 
 	ecdsaPrivKey, _ := cryptography.GenerateECDSAPrivateKey()
-	privKey = cryptography.GetOrCreatePrivKey(ecdsaPrivKey, PRIVATE_KEY_FILENAME)
-	util.WriteJsonIfKeyDoesntExists(privKey, PRIVATE_KEY_FILENAME)
-	pubKey = cryptography.GetOrCreatePubKey(ecdsaPrivKey, PUBLIC_KEY_FILENAME)
-	util.WriteJsonIfKeyDoesntExists(pubKey, PUBLIC_KEY_FILENAME)
+	privKey = cryptography.GetOrCreatePrivKey(ecdsaPrivKey, privateKeyFilename)
+	util.WriteJsonIfKeyDoesntExists(privKey, privateKeyFilename)
+	pubKey = cryptography.GetOrCreatePubKey(ecdsaPrivKey, publicKeyFilename)
+	util.WriteJsonIfKeyDoesntExists(pubKey, publicKeyFilename)
 
-	runHttpServer()
+	runHTTPServer()
 
 }

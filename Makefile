@@ -25,3 +25,9 @@ install:
 	go get -v github.com/Masterminds/glide
 	cd ${GOPATH}/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
 	glide install
+
+lint:
+	golint . cryptography util
+
+goreporter:
+	goreporter -p ../../../github.com/gustavohenrique/ransomware -r /tmp/report -f html

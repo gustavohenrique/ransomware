@@ -29,8 +29,8 @@ type PrivKey struct {
 }
 
 type ServerConfig struct {
-	PubKey  PubKey  `json: "pubKey"`
-	PrivKey PrivKey `json: "privKey"`
+	PubKey  PubKey  `json:"pubKey"`
+	PrivKey PrivKey `json:"privKey"`
 }
 
 type CipheredFileInfo struct {

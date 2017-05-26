@@ -42,11 +42,7 @@ func DecryptDir(dirPath string, config ServerConfig) error {
 	serverPrivateKey = new(ecdsa.PrivateKey)
 	serverPrivateKey.D = new(big.Int).SetBytes(serverPrivateKeyBigNum)
 
-	err = filepath.Walk(dirPath, WalkFuncDecorator(decryptFile))
-	if err != nil {
-		return err
-	}
-	return nil
+	return filepath.Walk(dirPath, WalkFuncDecorator(decryptFile))
 }
 
 func extractFileInfo(header []byte) (*CipheredFileInfo, error) {
@@ -198,9 +194,5 @@ func decryptFile(path string, fi os.FileInfo, err error) error {
 		return err
 	}
 
-	os.Remove(path)
-	if err != nil {
-		return err
-	}
-	return nil
+	return os.Remove(path)
 }
